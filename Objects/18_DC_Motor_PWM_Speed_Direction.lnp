@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\18_DC_Motor_PWM_Speed_Direction.obj" 
+TO ".\Objects\18_DC_Motor_PWM_Speed_Direction" 
+PRINT(".\Listings\18_DC_Motor_PWM_Speed_Direction.m51") RAMSIZE(256) 

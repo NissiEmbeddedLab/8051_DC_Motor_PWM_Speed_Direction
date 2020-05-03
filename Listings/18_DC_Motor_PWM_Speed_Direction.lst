@@ -1,0 +1,113 @@
+C51 COMPILER V9.60.0.0   18_DC_MOTOR_PWM_SPEED_DIRECTION                                   05/03/2020 20:50:17 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE 18_DC_MOTOR_PWM_SPEED_DIRECTION
+OBJECT MODULE PLACED IN .\Objects\18_DC_Motor_PWM_Speed_Direction.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE 18_DC_Motor_PWM_Speed_Direction.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTE
+                    -XTEND PRINT(.\Listings\18_DC_Motor_PWM_Speed_Direction.lst) TABS(2) OBJECT(.\Objects\18_DC_Motor_PWM_Speed_Direction.obj
+                    -)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          sbit m1p = P2^0;
+   3          sbit m1n = P2^1;
+   4          sbit m2p = P2^2;
+   5          sbit m2n = P2^3;
+   6          sbit m1s = P2^4;
+   7          sbit m2s = P2^5;
+   8          void T0M1Delay(unsigned int x);
+   9          unsigned int t;
+  10          void main(void)
+  11          {
+  12   1        while(1)
+  13   1        {
+  14   2          m1p = 1;     //Motor1,2 Anticlockwise
+  15   2          m1n = 0;
+  16   2          m2p = 0;
+  17   2          m2n = 1;
+  18   2        T0M1Delay(250);
+  19   2          m1p = 0;     //Motor1,2 off
+  20   2          m1n = 0;
+  21   2          m2p = 0;
+  22   2          m2n = 0;
+  23   2          T0M1Delay(50);
+  24   2        m1p = 0;        //Motor 1,2 Clockwise
+  25   2          m1n = 1;
+  26   2          m2p = 1;
+  27   2          m2n = 0;
+  28   2          
+  29   2        T0M1Delay(250);
+  30   2          m1p = 0;     //Motor1,2 off
+  31   2          m1n = 0;
+  32   2          m2p = 0;
+  33   2          m2n = 0;
+  34   2          T0M1Delay(50);
+  35   2          m1p = 1;     //Motor1,2 Anticlockwise
+  36   2          m1n = 0;
+  37   2          m2p = 0;
+  38   2          m2n = 1;
+  39   2          for(t=0;t<20;t++) // Motor 1,2 Anticlockwise with slow speed
+  40   2          {
+  41   3            m1s = 1;
+  42   3            m2s = 1;
+  43   3            T0M1Delay(5);
+  44   3            m1s = 0;
+  45   3            m2s = 0;
+  46   3            T0M1Delay(15);
+  47   3          }
+  48   2          m1p = 0;     //Motor1,2 off
+  49   2          m1n = 0;
+  50   2          m2p = 0;
+  51   2          m2n = 0;
+  52   2          T0M1Delay(50);
+  53   2          m1p = 0;        //Motor 1,2 Clockwise
+C51 COMPILER V9.60.0.0   18_DC_MOTOR_PWM_SPEED_DIRECTION                                   05/03/2020 20:50:17 PAGE 2   
+
+  54   2          m1n = 1;
+  55   2          m2p = 1;
+  56   2          m2n = 0;
+  57   2          for(t=0;t<20;t++) // Motor 1,2 Anticlockwise with slow speed
+  58   2          {
+  59   3            m1s = 1;
+  60   3            m2s = 1;
+  61   3            T0M1Delay(5);
+  62   3            m1s = 0;
+  63   3            m2s = 0;
+  64   3            T0M1Delay(15);
+  65   3          }
+  66   2          m1p = 0;     //Motor1,2 off
+  67   2          m1n = 0;
+  68   2          m2p = 0;
+  69   2          m2n = 0;
+  70   2          T0M1Delay(50);
+  71   2        }
+  72   1      }
+  73          void T0M1Delay(unsigned int x) //function to create 10msec delay 
+  74          {
+  75   1        unsigned int a;
+  76   1        for(a=0;a<x;a++)
+  77   1        {
+  78   2        TMOD = 0x01;
+  79   2        TH0 = 0xD8;       //0XD8F0 FOR 10msec delay @12MHz Oscillator frquency
+  80   2        TL0 = 0xF0;
+  81   2        TR0 = 1;
+  82   2        while(TF0 == 0);
+  83   2        TR0 = 0;
+  84   2        TF0 = 0;
+  85   2        }
+  86   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    197    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
